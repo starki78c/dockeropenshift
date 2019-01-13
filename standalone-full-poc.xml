@@ -597,13 +597,14 @@
         <subsystem xmlns="urn:jboss:domain:weld:4.0"/>
     </profile>
     <interfaces>
-        <interface name="management">
-         <any-address/>
-        </interface>
-        <interface name="public">
-             <any-address/>
-        </interface>
-        <interface name="private">
+       <interfaces>  
+    <interface name="management">  
+        <inet-address value="${jboss.bind.address.management:127.0.0.1}"/>  
+    </interface>  
+    <interface name="public">  
+        <inet-address value="${jboss.bind.address:127.0.0.1}"/>  
+    </interface>  
+       <interface name="private">
             <inet-address value="${jboss.bind.address.private:127.0.0.1}"/>
         </interface>
         <interface name="bindall">
