@@ -1,6 +1,16 @@
-FROM registry.access.redhat.com/jboss-eap-7/eap71-openshift
-ADD standalone-full-poc.xml /opt/eap/standalone/configuration/
-RUN /opt/eap/bin/add-user.sh admin admin@123 --silent
-CMD ["/opt/eap/bin/standalone.sh", "-c", "standalone-full-poc.xml", "-b", "0.0.0.0","-bmanagement", "0.0.0.0"]
+FROM openshift3/jenkins-2-rhel7:v3.11.98
+
+COPY contrib/jenkins/* /opt/openshift/configuration/init.groovy.d/
+
+COPY contrib/s2i/run /usr/libexec/s2i/run
+
+USER root
 
 
+ENV JAVA_HOME=/usr/lib/jvm/jre
+
+RUN chmod +x /usr/libexec/s2i/run
+
+ENV TZ="Europe/Berlin"
+
+USER 1001
